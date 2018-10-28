@@ -26,7 +26,7 @@ export default function FilmDetails({ film }) {
     return <Paragraph>Pick a film from the button above</Paragraph>
 
   return (
-    <Pane>
+    <Pane marginLeft={majorScale(2)} marginRight={majorScale(2)}>
       <Heading
         is="h1"
         size={600}
