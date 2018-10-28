@@ -1,21 +1,27 @@
-import React, { useState } from 'react'
-import { SelectMenu, Button } from 'evergreen-ui'
+import React from 'react'
+import { IconButton, Popover, Position, Menu } from 'evergreen-ui'
 
 export default function FilmSelector(props) {
-  const [selected, setSelected] = useState(null)
   const films = props.films || []
 
   return (
-    <SelectMenu
-      title="Select name"
-      options={films.map(film => ({ label: film.title, value: film.id }))}
-      selected={selected}
-      onSelect={item => {
-        setSelected(item.label)
-        props.onSelect && props.onSelect(item.value)
-      }}
+    <Popover
+      position={Position.BOTTOM_LEFT}
+      content={
+        <Menu>
+          <Menu.Group>
+            {films.map(film => (
+              <Menu.Item
+                onSelect={() => props.onSelect && props.onSelect(film.id)}
+              >
+                {film.title}
+              </Menu.Item>
+            ))}
+          </Menu.Group>
+        </Menu>
+      }
     >
-      <Button>{selected != null ? selected : 'Pick a film...'}</Button>
-    </SelectMenu>
+      <IconButton appearance="minimal" icon="mobile-video" iconSize={18} />
+    </Popover>
   )
 }
