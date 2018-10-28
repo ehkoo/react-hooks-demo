@@ -14,8 +14,9 @@ export default function App(props) {
   const [currentFilm, setCurrentFilm] = useState(null)
 
   useEffect(() => {
-    if (films == null) {
+    if (films == null && isLoading === false) {
       setIsLoading(true)
+
       fetchFilms()
         .then(({ data }) => {
           setFilms(keyBy(data, d => d.id))
