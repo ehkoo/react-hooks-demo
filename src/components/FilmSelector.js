@@ -12,7 +12,7 @@ export default function FilmSelector(props) {
       selected={selected}
       onSelect={item => {
         setSelected(item.label)
-        props.onSelect && props.onSelect(item)
+        props.onSelect && props.onSelect(item.value)
       }}
     >
       <Button>{selected != null ? selected : 'Pick a film...'}</Button>

@@ -10,6 +10,7 @@ import keyBy from 'lodash/keyBy'
 
 export default function App(props) {
   const [films, setFilms] = useState(null)
+  const [currentFilm, setCurrentFilm] = useState(null)
 
   useEffect(() => {
     if (films == null) {
@@ -30,21 +31,35 @@ export default function App(props) {
         display="flex"
         alignItems="center"
       >
-        <Heading size={500} letterSpacing="2px" fontWeight={700}>
-          Studio Ghibli Movies
-        </Heading>
-        <Pane marginLeft={majorScale(3)}>
-          <FilmSelector films={films != null ? Object.values(films) : null} />
+        <Pane
+          width={960}
+          display="flex"
+          alignItems="center"
+          marginLeft="auto"
+          marginRight="auto"
+        >
+          <Heading size={500} letterSpacing="2px" fontWeight={700}>
+            Studio Ghibli Movies
+          </Heading>
+          <Pane marginLeft={majorScale(3)}>
+            <FilmSelector
+              films={films != null ? Object.values(films) : null}
+              onSelect={filmId => setCurrentFilm(films[filmId])}
+            />
+          </Pane>
         </Pane>
       </Pane>
 
       <Pane
         is="main"
-        paddingLeft={majorScale(2)}
-        paddingRight={majorScale(2)}
         marginTop={majorScale(3)}
+        width={960}
+        display="flex"
+        alignItems="center"
+        marginLeft="auto"
+        marginRight="auto"
       >
-        <FilmDetails />
+        <FilmDetails film={currentFilm} />
       </Pane>
     </Pane>
   )
