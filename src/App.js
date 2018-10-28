@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Heading, Pane, majorScale } from 'evergreen-ui'
+import { Spinner, Heading, Pane, majorScale } from 'evergreen-ui'
 
 import FilmSelector from './components/FilmSelector'
 import FilmDetails from './components/FilmDetails'
@@ -9,14 +9,19 @@ import fetchFilms from './effects/fetchFilms'
 import keyBy from 'lodash/keyBy'
 
 export default function App(props) {
+  const [isLoading, setIsLoading] = useState(false)
   const [films, setFilms] = useState(null)
   const [currentFilm, setCurrentFilm] = useState(null)
 
   useEffect(() => {
     if (films == null) {
+      setIsLoading(true)
       fetchFilms()
-        .then(({ data }) => setFilms(keyBy(data, d => d.id)))
-        .catch(console.error)
+        .then(({ data }) => {
+          setFilms(keyBy(data, d => d.id))
+          setIsLoading(false)
+        })
+        .catch(() => setIsLoading(false))
     }
   })
 
@@ -56,10 +61,11 @@ export default function App(props) {
         width={960}
         display="flex"
         alignItems="center"
+        justifyContent="center"
         marginLeft="auto"
         marginRight="auto"
       >
-        <FilmDetails film={currentFilm} />
+        {isLoading ? <Spinner /> : <FilmDetails film={currentFilm} />}
       </Pane>
     </Pane>
   )
