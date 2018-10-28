@@ -12,6 +12,7 @@ export default function FilmSelector(props) {
           <Menu.Group>
             {films.map(film => (
               <Menu.Item
+                key={film.id}
                 onSelect={() => props.onSelect && props.onSelect(film.id)}
               >
                 {film.title}
