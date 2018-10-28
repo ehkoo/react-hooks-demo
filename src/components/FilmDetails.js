@@ -11,9 +11,11 @@ import {
   Text
 } from 'evergreen-ui'
 
+import FilmPeople from './FilmPeople'
+
 const TABS = [
+  { label: 'People', component: FilmPeople },
   { label: 'Locations', component: Paragraph },
-  { label: 'People', component: Paragraph },
   { label: 'Species', component: Paragraph }
 ]
 

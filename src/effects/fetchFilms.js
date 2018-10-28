@@ -1,5 +1,5 @@
-import req from '../helpers/req'
+import axios from 'axios'
 
 export default function() {
-  return req.get('/films')
+  return axios.get('https://ghibliapi.herokuapp.com/films')
 }
